@@ -27,8 +27,8 @@ int main(int argc, char** argv) {
 	size_t mod = ISIZE % size;
 
 	len = (rank >= mod) ? len : len + 1.0;
-    size_t start = rank * len;
-    start = (rank >= mod) ? start + mod : start;
+    	size_t start = rank * len;
+    	start = (rank >= mod) ? start + mod : start;
 	
 	a = (double*)malloc(ISIZE * JSIZE * sizeof(double));
 	run_first_ext(rank, size, a);
@@ -84,8 +84,8 @@ void run_first_ext(int rank, int size, double* a) {
 	size_t mod = ISIZE % size;
 
 	len = (rank >= mod) ? len : len + 1.0;
-    size_t start = rank * len;
-    start = (rank >= mod) ? start + mod : start;
+    	size_t start = rank * len;
+    	start = (rank >= mod) ? start + mod : start;
 
 	if (rank != 0) {
         double* tmp = (double*)malloc(len * JSIZE * sizeof(double));
