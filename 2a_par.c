@@ -88,17 +88,17 @@ void run_first_ext(int rank, int size, double* a) {
     	start = (rank >= mod) ? start + mod : start;
 
 	if (rank != 0) {
-        double* tmp = (double*)malloc(len * JSIZE * sizeof(double));
+        	double* tmp = (double*)malloc(len * JSIZE * sizeof(double));
 		work_first_ext(tmp, start, len + start);
 		int send_size = len * JSIZE;
 		MPI_Send(tmp, send_size, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
 		free(tmp);
 	} else {
 		work_first_ext(a, start, len + start);
-        for (size_t i = 1; i < size; i++) {
-        	if (start == 0) {
-        		start = len * JSIZE;
-        	}
+        	for (size_t i = 1; i < size; i++) {
+        		if (start == 0) {
+        			start = len * JSIZE;
+        		}
 			len = (i == mod) ? len - 1.0 : len;
 			int recv_size = len * JSIZE;
 			MPI_Recv(a + start, recv_size, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, &status);
