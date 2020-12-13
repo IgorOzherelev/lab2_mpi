@@ -89,17 +89,17 @@ void run(int rank, int size, double* a, run_params params) {
     	start = (rank >= mod) ? start + mod : start;
 
 	if (rank != 0) {
-        double* tmp = (double*)malloc(len * JSIZE * sizeof(double));
+        	double* tmp = (double*)malloc(len * JSIZE * sizeof(double));
 		params.ptr_work_fun(tmp, start, len + start);
 		int send_size = (params.isBoth == 0) ? len * JSIZE : len;
 		MPI_Send(tmp, send_size, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
 		free(tmp);
 	} else {
 		params.ptr_work_fun(a, start, len + start);
-        for (size_t i = 1; i < size; i++) {
-        	if (start == 0) {
-        		start = (params.isBoth == 0) ? len * JSIZE : len;
-        	}
+        	for (size_t i = 1; i < size; i++) {
+        		if (start == 0) {
+        			start = (params.isBoth == 0) ? len * JSIZE : len;
+        		}
 			len = (i == mod) ? len - 1.0 : len;
 			int recv_size = (params.isBoth == 0) ? len * JSIZE : len;
 			MPI_Recv(a + start, recv_size, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, &status);
