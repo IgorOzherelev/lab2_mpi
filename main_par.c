@@ -85,8 +85,8 @@ void run(int rank, int size, double* a, run_params params) {
 	size_t len = params.block_size;
 	len = (rank >= mod) ? len : len + 1.0;
 
-    size_t start = rank * len;
-    start = (rank >= mod) ? start + mod : start;
+    	size_t start = rank * len;
+    	start = (rank >= mod) ? start + mod : start;
 
 	if (rank != 0) {
         double* tmp = (double*)malloc(len * JSIZE * sizeof(double));
